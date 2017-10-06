@@ -1,0 +1,6 @@
+[submodule "vendor/googletest"]
+	path = vendor/googletest
+	url = https://github.com/google/googletest
+[submodule "vendor/boost"]
+	path = vendor/boost
+	url = git@github.com:boostorg/boost.git

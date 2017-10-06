@@ -1,0 +1,26 @@
+{
+    // cpp general
+    "C_Cpp.clang_format_style": "visual studio",
+
+    // cmake
+    "cmake.generator.all": "ninja",
+    "cmake.experimental.enableTargetDebugging": true,
+
+    // ycmd
+    "ycmd.path": "../../3rdParty/ycmd",
+    "ycmd.debug": true,
+    "ycmd.confirm_extra_conf": false,
+
+    // general
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        "build/": true
+    },
+    "recommendations": [
+        "twxs.cmake",
+        "ms-vscode.cpptools",
+        "RichardHe.you-complete-me",
+        "vector-of-bool.cmake-tools"
+	]
+}
