@@ -11,7 +11,7 @@ The following figure shows a frame of the input video:
 # Solo Iterative Process
 Since this is a single programmer project, the Solo Iterative Process (SIP) is used to manage it. A product backlog, iteration backlog and work log(time log and code defect log) are used as structure of the whole project. The following link contains these logs. They will be updated through the whole development of the project.
 
-https://docs.google.com/a/terpmail.umd.edu/spreadsheets/d/1wAc0GReN9C3EdXlg6FTdIYsp7ub-Ah-TXP2X_KxtHys/edit?usp=sharing
+https://docs.google.com/spreadsheets/d/1wAc0GReN9C3EdXlg6FTdIYsp7ub-Ah-TXP2X_KxtHys/edit?usp=sharing
 
 The project will consist of two iterations:
 * The release for Iteration 1 will be a functioning code which detects lanes in the input video.
