@@ -29,3 +29,33 @@ cv::Mat LaneDetector::edgeDetector(cv::Mat img_noise) {
 
   return output;
 }
+
+cv::Mat LaneDetector::mask(cv::Mat img_edges) {
+  cv::Mat output;
+  cv::Mat mask = cv::Mat::zeros(img_edges.size(), img_edges.type());
+  cv::Point pts[4] = {
+      cv::Point(210, 720),
+      cv::Point(550, 450),
+      cv::Point(717, 450),
+      cv::Point(1280, 720)
+  };
+  cv::fillConvexPoly(mask, pts, 4, cv::Scalar(255, 0, 0));
+  cv::bitwise_and(img_edges, mask, output);
+
+  return output;
+}
+
+std::vector<cv::Vec4i> LaneDetector::houghLines(cv::Mat inputImage, cv::Mat img_mask) {
+  std::vector<cv::Vec4i> line;
+
+  HoughLinesP(img_mask, line, 1, CV_PI/180, 20, 20, 30);
+  for( size_t i = 0; i < line.size(); i++ )
+    {
+      cv::Vec4i l = line[i];
+      cv::line( inputImage, cv::Point(l[0], l[1]), cv::Point(l[2], l[3]), cv::Scalar(0,0,255), 3, CV_AA);
+    }
+  cv::namedWindow("Lines", CV_WINDOW_AUTOSIZE);
+  cv::imshow("Lines", inputImage);
+
+  return line;
+}

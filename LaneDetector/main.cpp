@@ -11,19 +11,21 @@ int main() {
     if (!cap.isOpened())
       return -1;
 
-    cv::Mat frame;
     LaneDetector lanedetector;
+    cv::Mat frame;
     cv::Mat img_denoise;
     cv::Mat img_edges;
+    cv::Mat img_mask;
+    cv::Mat img_lines;
+    std::vector<cv::Vec4i> lines;
 
-    cv::namedWindow("Input",CV_WINDOW_AUTOSIZE);
-    cv::namedWindow("Edges",CV_WINDOW_AUTOSIZE);
+//    cv::namedWindow("Edges",CV_WINDOW_AUTOSIZE);
     while(1) {
 
       if (!cap.read(frame))
         break;
 
-      cv::imshow("Input", frame);
+//      cv::imshow("Input", frame);
 
       // Start image processing
       // Denoise the image using a Gaussian filter
@@ -31,7 +33,13 @@ int main() {
 
       // Detect edges in the image
       img_edges = lanedetector.edgeDetector(img_denoise);
-      cv::imshow("Edges", img_edges);
+//      cv::imshow("Edges", img_edges);
+
+      // Mask the image so that we only get the ROI
+      img_mask = lanedetector.mask(img_edges);
+
+      // Obtain Hough lines in the cropped image
+      lines = lanedetector.houghLines(frame, img_mask);
 
       cv::waitKey(35);
     }
