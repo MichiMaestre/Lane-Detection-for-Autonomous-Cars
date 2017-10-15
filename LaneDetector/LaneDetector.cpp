@@ -49,14 +49,6 @@ std::vector<cv::Vec4i> LaneDetector::houghLines(cv::Mat img_mask) {
   std::vector<cv::Vec4i> line;
 
   HoughLinesP(img_mask, line, 1, CV_PI/180, 20, 20, 30);
-//  for( size_t i = 0; i < line.size(); i++ )
-//    {
-//      cv::Vec4i l = line[i];
-//      cv::line( inputImage, cv::Point(l[0], l[1]), cv::Point(l[2], l[3]), cv::Scalar(0,0,255), 3, CV_AA);
-//    }
-//  cv::namedWindow("Lines", CV_WINDOW_AUTOSIZE);
-//  cv::imshow("Lines", inputImage);
-//  std::cout << line.size() << std::endl;
 
   return line;
 }
@@ -106,7 +98,6 @@ std::vector<std::vector<cv::Vec4i> > LaneDetector::lineSeparation(std::vector<cv
     else {
       right_flag = false;
       left_flag = false;
-      std::cout << ini.x << std::endl;
     }
   }
 
@@ -124,12 +115,8 @@ std::vector<cv::Point> LaneDetector::regression(std::vector<std::vector<cv::Vec4
   cv::Point fini2;
   std::vector<cv::Point> right_pts;
   cv::Vec4d right_line;
-  cv::Point right_b;
-  double right_m;
   std::vector<cv::Point> left_pts;
   cv::Vec4d left_line;
-  cv::Point left_b;
-  double left_m;
 
 
   if (right_flag == true) {
@@ -173,16 +160,51 @@ std::vector<cv::Point> LaneDetector::regression(std::vector<std::vector<cv::Vec4
   double left_ini_x = ((ini_y - left_b.y) / left_m) + left_b.x;
   double left_fin_x = ((fin_y - left_b.y) / left_m) + left_b.x;
 
-  cv::line( inputImage, cv::Point(right_ini_x, ini_y), cv::Point(right_fin_x, fin_y), cv::Scalar(0,255,0), 3, CV_AA);
-  cv::line( inputImage, cv::Point(left_ini_x, ini_y), cv::Point(left_fin_x, fin_y), cv::Scalar(0,255,0), 3, CV_AA);
-
-  cv::namedWindow("Lane", CV_WINDOW_AUTOSIZE);
-  cv::imshow("Lane", inputImage);
-
   output[0] = cv::Point(right_ini_x, ini_y);
   output[1] = cv::Point(right_fin_x, fin_y);
   output[2] = cv::Point(left_ini_x, ini_y);
   output[3] = cv::Point(left_fin_x, fin_y);
 
   return output;
+}
+
+std::string LaneDetector::predictTurn() {
+  std::string output;
+  double vanish_x;
+  double thr_vp = 10;
+
+  vanish_x = double(((right_m*right_b.x) - (left_m*left_b.x) - right_b.y + left_b.y) / (right_m - left_m));
+//  vanish_y = right_m*(vanish_x - right_b.x) + right_b.y;
+
+  if (vanish_x < (img_center - thr_vp))
+    output = "Left Turn";
+  else if (vanish_x > (img_center + thr_vp))
+    output = "Right Turn";
+  else if (vanish_x >= (img_center - thr_vp) && vanish_x <= (img_center + thr_vp))
+    output = "Straight";
+
+  return output;
+}
+
+
+void LaneDetector::plotLane(cv::Mat inputImage, std::vector<cv::Point> lane, std::string turn) {
+  std::vector<cv::Point> poly_points;
+  cv::Mat output;
+  inputImage.copyTo(output);
+  poly_points.push_back(lane[2]);
+  poly_points.push_back(lane[0]);
+  poly_points.push_back(lane[1]);
+  poly_points.push_back(lane[3]);
+  cv::fillConvexPoly(output, poly_points, cv::Scalar(0,0,255), CV_AA, 0);
+
+  cv::addWeighted(output, 0.3, inputImage, 1.0 - 0.3, 0, inputImage);
+
+  cv::line( inputImage, lane[0], lane[1], cv::Scalar(0,255,255), 5, CV_AA);
+  cv::line( inputImage, lane[2], lane[3], cv::Scalar(0,255,255), 5, CV_AA);
+
+  cv::putText(inputImage, turn, cv::Point(50,90),cv::FONT_HERSHEY_COMPLEX_SMALL, 3, cvScalar(0,255,0), 1, CV_AA);
+
+  cv::namedWindow("Lane", CV_WINDOW_AUTOSIZE);
+  cv::imshow("Lane", inputImage);
+
 }

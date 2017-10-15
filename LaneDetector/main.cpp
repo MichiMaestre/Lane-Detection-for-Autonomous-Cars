@@ -20,14 +20,13 @@ int main() {
     std::vector<cv::Vec4i> lines;
     std::vector<std::vector<cv::Vec4i> > left_right_lines;
     std::vector<cv::Point> lane;
+    std::string turn;
+    int i = 0;
 
-//    cv::namedWindow("Edges",CV_WINDOW_AUTOSIZE);
-    while(1) {
+    while(i < 540) {
 
       if (!cap.read(frame))
         break;
-
-//      cv::imshow("Input", frame);
 
       // Start image processing
       // Denoise the image using a Gaussian filter
@@ -49,7 +48,14 @@ int main() {
       //Apply regression to obtain only one line for each side of the lane
       lane = lanedetector.regression(left_right_lines, frame);
 
-      cv::waitKey(35);
+      // Predict the turn by determining the vanishing point of the the lines
+      turn = lanedetector.predictTurn();
+
+      // Plot lane detection
+      lanedetector.plotLane(frame, lane, turn);
+
+      i += 1;
+      cv::waitKey(20);
     }
     return 0;
 }
