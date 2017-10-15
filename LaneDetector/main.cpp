@@ -18,6 +18,8 @@ int main() {
     cv::Mat img_mask;
     cv::Mat img_lines;
     std::vector<cv::Vec4i> lines;
+    std::vector<std::vector<cv::Vec4i> > left_right_lines;
+    std::vector<cv::Point> lane;
 
 //    cv::namedWindow("Edges",CV_WINDOW_AUTOSIZE);
     while(1) {
@@ -39,7 +41,13 @@ int main() {
       img_mask = lanedetector.mask(img_edges);
 
       // Obtain Hough lines in the cropped image
-      lines = lanedetector.houghLines(frame, img_mask);
+      lines = lanedetector.houghLines(img_mask);
+
+      //Separate lines into left and right lines
+      left_right_lines= lanedetector.lineSeparation(lines, img_edges);
+
+      //Apply regression to obtain only one line for each side of the lane
+      lane = lanedetector.regression(left_right_lines, frame);
 
       cv::waitKey(35);
     }

@@ -2,18 +2,25 @@
 #include<iostream>
 #include "opencv2/opencv.hpp"
 #include <opencv2/highgui/highgui.hpp>
+#include <tuple>
 
 
 class LaneDetector {
  private:
   cv::Mat img_noise;
   cv::Mat img_edges;
+  double img_size;
+  double img_center;
+  bool left_flag;
+  bool right_flag;
 
  public:
 
   cv::Mat deNoise(cv::Mat inputImage);
   cv::Mat edgeDetector(cv::Mat img_noise);
   cv::Mat mask(cv::Mat img_edges);
-  std::vector<cv::Vec4i> houghLines(cv::Mat inputImage, cv::Mat img_mask);
+  std::vector<cv::Vec4i> houghLines(cv::Mat img_mask);
+  std::vector<std::vector<cv::Vec4i> > lineSeparation(std::vector<cv::Vec4i> lines, cv::Mat img_edges);
+  std::vector<cv::Point> regression(std::vector<std::vector<cv::Vec4i> > left_right_lines, cv::Mat inputImage);
 
 };
