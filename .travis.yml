@@ -25,16 +25,21 @@ before_install:
 install:
   - sudo apt-get install -y -qq lcov
 
-before script:
-  - git clone https://github.com/Itseez/opencv.git
-  - cd opencv
+# OpenCV 3.2
+  - sudo apt-get install -y build-essential
+  - sudo apt-get install -y cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+  - sudo apt-get install -y python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+  - wget https://github.com/Itseez/opencv/archive/3.2.0.zip -O opencv-3.2.0.zip
+  - unzip opencv-3.2.0.zip
+  - cd opencv-3.2.0
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..
   - make -j4
-  - sudo make -j4 install
-  - mvn install:install-file -Dfile=/usr/local/share/OpenCV/java/opencv-300.jar -DgroupId=opencv -DartifactId=opencv -Dversion=3.2.0 -Dpackaging=jar
-  - cd ../..
+  - sudo make install
+  - sudo /bin/bash -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
+  - sudo ldconfig
+  - cd ../../
 script:
   - export CXX=$COMPILER;
   - mkdir build
