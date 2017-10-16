@@ -13,8 +13,9 @@ int testing_lanes() {
 
 //    std::string source = argv[1];
     cv::VideoCapture cap("/home/michi/Desktop/project_video.mp4");
-    if (!cap.isOpened())
+    if (!cap.isOpened()) {
       return -1;
+    }
 
     LaneDetector lanedetector;
     cv::Mat frame;
@@ -26,13 +27,14 @@ int testing_lanes() {
     std::vector<std::vector<cv::Vec4i> > left_right_lines;
     std::vector<cv::Point> lane;
     std::string turn;
+    int flag_plot = -1;
     int i = 0;
 
-    while(i == 1) {
+    while(i < 3) {
 
-      if (!cap.read(frame))
+      if (!cap.read(frame)) {
         break;
-
+      }
 
       img_denoise = lanedetector.deNoise(frame);
       img_edges = lanedetector.edgeDetector(img_denoise);
@@ -41,10 +43,11 @@ int testing_lanes() {
       left_right_lines= lanedetector.lineSeparation(lines, img_edges);
       lane = lanedetector.regression(left_right_lines, frame);
       turn = lanedetector.predictTurn();
-      lanedetector.plotLane(frame, lane, turn);
+      flag_plot = lanedetector.plotLane(frame, lane, turn);
 
       i += 1;
       cv::waitKey(25);
     }
-    return 0;
+
+    return flag_plot;
 }

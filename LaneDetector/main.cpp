@@ -27,6 +27,7 @@ int main(int argc, char *argv[]) {
     std::vector<std::vector<cv::Vec4i> > left_right_lines;
     std::vector<cv::Point> lane;
     std::string turn;
+    int flag_plot = -1;
     int i = 0;
 
 //    //Video Object
@@ -63,10 +64,10 @@ int main(int argc, char *argv[]) {
       turn = lanedetector.predictTurn();
 
       // Plot lane detection
-      lanedetector.plotLane(frame, lane, turn);
+      flag_plot = lanedetector.plotLane(frame, lane, turn);
 
       i += 1;
       cv::waitKey(25);
     }
-    return 0;
+    return flag_plot;
 }

@@ -24,5 +24,5 @@ class LaneDetector {
   std::vector<std::vector<cv::Vec4i> > lineSeparation(std::vector<cv::Vec4i> lines, cv::Mat img_edges);
   std::vector<cv::Point> regression(std::vector<std::vector<cv::Vec4i> > left_right_lines, cv::Mat inputImage);
   std::string predictTurn();
-  void plotLane(cv::Mat inputImage, std::vector<cv::Point>, std::string turn);
+  int plotLane(cv::Mat inputImage, std::vector<cv::Point>, std::string turn);
 };

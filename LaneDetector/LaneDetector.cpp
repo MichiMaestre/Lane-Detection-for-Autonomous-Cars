@@ -187,7 +187,7 @@ std::string LaneDetector::predictTurn() {
 }
 
 
-void LaneDetector::plotLane(cv::Mat inputImage, std::vector<cv::Point> lane, std::string turn) {
+int LaneDetector::plotLane(cv::Mat inputImage, std::vector<cv::Point> lane, std::string turn) {
   std::vector<cv::Point> poly_points;
   cv::Mat output;
   inputImage.copyTo(output);
@@ -208,5 +208,8 @@ void LaneDetector::plotLane(cv::Mat inputImage, std::vector<cv::Point> lane, std
 
   cv::namedWindow("Lane", CV_WINDOW_AUTOSIZE);
   cv::imshow("Lane", inputImage);
-
+  if (lane.empty())
+    return -1;
+  else
+    return 0;
 }
