@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 //    cv::Size frameSize(static_cast<int>(dWidth), static_cast<int>(dHeight));
 //    cv::VideoWriter oVideoWriter ("/home/michi/Desktop/output_video.avi", CV_FOURCC('P','I','M','1'), 25, frameSize,true);
 
-    while(i < 700) {
+    while(i < 540) {
 
       if (!cap.read(frame))
         break;
