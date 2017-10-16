@@ -8,8 +8,8 @@ class LaneDetector {
  private:
   double img_size;
   double img_center;
-  bool left_flag;
-  bool right_flag;
+  bool left_flag = false;
+  bool right_flag = false;
   cv::Point right_b;
   double right_m;
   cv::Point left_b;

@@ -67,10 +67,10 @@ std::vector<std::vector<cv::Vec4i> > LaneDetector::lineSeparation(std::vector<cv
     ini = cv::Point(i[0], i[1]);
     fini = cv::Point(i[2], i[3]);
 
-    if ((double)fini.x - (double)ini.x == 0)
-        slope = 999;
-    else
-      slope = ((double)fini.y - (double)ini.y)/((double)fini.x - (double)ini.x);
+//    if ((double)fini.x - (double)ini.x == 0)
+//        slope = 999;
+//    else
+    slope = ((double)fini.y - (double)ini.y)/((double)fini.x - (double)ini.x + 0.00001);
 
     if (std::abs(slope) > slope_thresh) {
       slopes.push_back(slope);
@@ -95,10 +95,6 @@ std::vector<std::vector<cv::Vec4i> > LaneDetector::lineSeparation(std::vector<cv
       left_lines.push_back(selected_lines[j]);
       left_flag = true;
     }
-    else {
-      right_flag = false;
-      left_flag = false;
-    }
   }
 
   output[0] = right_lines;
@@ -117,7 +113,6 @@ std::vector<cv::Point> LaneDetector::regression(std::vector<std::vector<cv::Vec4
   cv::Vec4d right_line;
   std::vector<cv::Point> left_pts;
   cv::Vec4d left_line;
-
 
   if (right_flag == true) {
     for (auto i : left_right_lines[0]) {
@@ -208,8 +203,5 @@ int LaneDetector::plotLane(cv::Mat inputImage, std::vector<cv::Point> lane, std:
 
   cv::namedWindow("Lane", CV_WINDOW_AUTOSIZE);
   cv::imshow("Lane", inputImage);
-  if (lane.empty())
-    return -1;
-  else
-    return 0;
+  return 0;
 }

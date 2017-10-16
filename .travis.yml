@@ -24,6 +24,7 @@ before_install:
   - pip install --user cpp-coveralls
 install:
   - sudo apt-get install -y -qq lcov
+  - sudo apt install youtube-dl
 
 # OpenCV 3.2
   - sudo apt-get install -y build-essential
@@ -44,6 +45,8 @@ script:
   - export CXX=$COMPILER;
   - mkdir build
   - cd build
+  - youtube-dl -o "%(title)s" https://www.youtube.com/watch?v=hri-qh1zwus&feature=youtu.be
+  - wget http://bcmireland.ie/wp-content/uploads/gradient1.png
   - cmake -DCOVERAGE=ON -DCMAKE_BUILD_TYPE=Debug ../
   - make
   - make code_coverage

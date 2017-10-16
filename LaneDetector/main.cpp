@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
 //    cv::Size frameSize(static_cast<int>(dWidth), static_cast<int>(dHeight));
 //    cv::VideoWriter oVideoWriter ("/home/michi/Desktop/output_video.avi", CV_FOURCC('P','I','M','1'), 25, frameSize,true);
 
-    while(i < 540) {
+    while(i < 700) {
 
       if (!cap.read(frame))
         break;
@@ -54,20 +54,25 @@ int main(int argc, char *argv[]) {
       // Obtain Hough lines in the cropped image
       lines = lanedetector.houghLines(img_mask);
 
-      //Separate lines into left and right lines
-      left_right_lines= lanedetector.lineSeparation(lines, img_edges);
+      if(!lines.empty()) {
 
-      //Apply regression to obtain only one line for each side of the lane
-      lane = lanedetector.regression(left_right_lines, frame);
+        //Separate lines into left and right lines
+        left_right_lines= lanedetector.lineSeparation(lines, img_edges);
 
-      // Predict the turn by determining the vanishing point of the the lines
-      turn = lanedetector.predictTurn();
+        //Apply regression to obtain only one line for each side of the lane
+        lane = lanedetector.regression(left_right_lines, frame);
 
-      // Plot lane detection
-      flag_plot = lanedetector.plotLane(frame, lane, turn);
+        // Predict the turn by determining the vanishing point of the the lines
+        turn = lanedetector.predictTurn();
 
-      i += 1;
-      cv::waitKey(25);
+        // Plot lane detection
+        flag_plot = lanedetector.plotLane(frame, lane, turn);
+
+        i += 1;
+        cv::waitKey(25);
+      }
+      else
+        flag_plot = -1;
     }
     return flag_plot;
 }

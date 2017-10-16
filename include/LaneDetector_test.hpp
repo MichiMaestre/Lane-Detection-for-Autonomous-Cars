@@ -4,7 +4,7 @@
 #include "../include/LaneDetector.hpp"
 #include "../LaneDetector/LaneDetector.cpp"
 
-int testing_lanes() {
+int testing_lanes(int frame_number) {
 
 //    if (argc != 2) {
 //      std::cout << "Not enough parameters" << std::endl;
@@ -13,9 +13,6 @@ int testing_lanes() {
 
 //    std::string source = argv[1];
     cv::VideoCapture cap("/home/michi/Desktop/project_video.mp4");
-    if (!cap.isOpened()) {
-      return -1;
-    }
 
     LaneDetector lanedetector;
     cv::Mat frame;
@@ -28,26 +25,20 @@ int testing_lanes() {
     std::vector<cv::Point> lane;
     std::string turn;
     int flag_plot = -1;
-    int i = 0;
 
-    while(i < 3) {
+    cap.set(cv::CAP_PROP_POS_FRAMES, frame_number);
+    cap.read(frame);
 
-      if (!cap.read(frame)) {
-        break;
-      }
-
-      img_denoise = lanedetector.deNoise(frame);
-      img_edges = lanedetector.edgeDetector(img_denoise);
-      img_mask = lanedetector.mask(img_edges);
-      lines = lanedetector.houghLines(img_mask);
-      left_right_lines= lanedetector.lineSeparation(lines, img_edges);
-      lane = lanedetector.regression(left_right_lines, frame);
-      turn = lanedetector.predictTurn();
-      flag_plot = lanedetector.plotLane(frame, lane, turn);
-
-      i += 1;
-      cv::waitKey(25);
-    }
+    img_denoise = lanedetector.deNoise(frame);
+    img_edges = lanedetector.edgeDetector(img_denoise);
+    img_mask = lanedetector.mask(img_edges);
+    lines = lanedetector.houghLines(img_mask);
+    left_right_lines= lanedetector.lineSeparation(lines, img_edges);
+    lane = lanedetector.regression(left_right_lines, frame);
+    turn = lanedetector.predictTurn();
+    flag_plot = lanedetector.plotLane(frame, lane, turn);
 
     return flag_plot;
 }
+
+

@@ -4,6 +4,7 @@ add_executable(
     lanes-test
     main.cpp
     test.cpp
+    ../LaneDetector/LaneDetector.cpp
 )
 
 target_include_directories(lanes-test PUBLIC ../vendor/googletest/googletest/include 
