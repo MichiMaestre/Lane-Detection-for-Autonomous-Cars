@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
+#include "../include/LaneDetector_test.hpp"
 
-TEST(dummy, should_pass) {
-  EXPECT_EQ(1, 1);
+
+TEST(LaneTest, lane_detected) {
+  EXPECT_EQ(testing_lanes(), 0);
 }
