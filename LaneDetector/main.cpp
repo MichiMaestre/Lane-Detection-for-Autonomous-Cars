@@ -5,9 +5,15 @@
 #include <opencv2/highgui/highgui.hpp>
 
 
-int main() {
+int main(int argc, char *argv[]) {
 
-    cv::VideoCapture cap("/home/michi/Desktop/project_video.mp4");
+    if (argc != 2) {
+      std::cout << "Not enough parameters" << std::endl;
+      return -1;
+    }
+
+    std::string source = argv[1];
+    cv::VideoCapture cap(source);
     if (!cap.isOpened())
       return -1;
 
@@ -23,6 +29,12 @@ int main() {
     std::string turn;
     int i = 0;
 
+//    //Video Object
+//    double dWidth = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+//    double dHeight = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+//    cv::Size frameSize(static_cast<int>(dWidth), static_cast<int>(dHeight));
+//    cv::VideoWriter oVideoWriter ("/home/michi/Desktop/output_video.avi", CV_FOURCC('P','I','M','1'), 25, frameSize,true);
+
     while(i < 540) {
 
       if (!cap.read(frame))
@@ -34,7 +46,6 @@ int main() {
 
       // Detect edges in the image
       img_edges = lanedetector.edgeDetector(img_denoise);
-//      cv::imshow("Edges", img_edges);
 
       // Mask the image so that we only get the ROI
       img_mask = lanedetector.mask(img_edges);
@@ -55,7 +66,7 @@ int main() {
       lanedetector.plotLane(frame, lane, turn);
 
       i += 1;
-      cv::waitKey(20);
+      cv::waitKey(25);
     }
     return 0;
 }

@@ -204,6 +204,8 @@ void LaneDetector::plotLane(cv::Mat inputImage, std::vector<cv::Point> lane, std
 
   cv::putText(inputImage, turn, cv::Point(50,90),cv::FONT_HERSHEY_COMPLEX_SMALL, 3, cvScalar(0,255,0), 1, CV_AA);
 
+//  oVideoWriter.write(inputImage);
+
   cv::namedWindow("Lane", CV_WINDOW_AUTOSIZE);
   cv::imshow("Lane", inputImage);
 
