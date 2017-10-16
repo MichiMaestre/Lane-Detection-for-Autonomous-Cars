@@ -40,6 +40,10 @@ install:
   - sudo /bin/bash -c 'echo "/usr/local/lib" > /etc/ld.so.conf.d/opencv.conf'
   - sudo ldconfig
   - cd ../../
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 script:
   - export CXX=$COMPILER;
   - mkdir build
