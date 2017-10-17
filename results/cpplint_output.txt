@@ -1,0 +1,26 @@
+./LaneDetector/LaneDetector.cpp:126:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./LaneDetector/LaneDetector.cpp:142:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./LaneDetector/LaneDetector.cpp:184:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./LaneDetector/LaneDetector.cpp:195:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./LaneDetector/LaneDetector.cpp:213:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./LaneDetector/LaneDetector.cpp:231:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./LaneDetector/LaneDetector.cpp:262:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./LaneDetector/LaneDetector.cpp:269:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./LaneDetector/LaneDetector.cpp:283:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./LaneDetector/LaneDetector.cpp:301:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+Done processing ./LaneDetector/LaneDetector.cpp
+Done processing ./LaneDetector/demo.cpp
+./include/LaneDetector.hpp:44:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./include/LaneDetector.hpp:51:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./include/LaneDetector.hpp:52:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./include/LaneDetector.hpp:53:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./include/LaneDetector.hpp:54:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./include/LaneDetector.hpp:55:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./include/LaneDetector.hpp:56:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./include/LaneDetector.hpp:57:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+./include/LaneDetector.hpp:58:  Lines should be <= 80 characters long  [whitespace/line_length] [2]
+Done processing ./include/LaneDetector.hpp
+Done processing ./test/main.cpp
+Done processing ./test/test.cpp
+Total errors found: 19
+
