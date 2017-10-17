@@ -1,23 +1,17 @@
 # Lane Detection for Autonomous Cars
+======
 [![Build Status](https://travis-ci.org/MichiMaestre/Lane-Detection-for-Autonomous-Cars.svg?branch=master)](https://travis-ci.org/MichiMaestre/Lane-Detection-for-Autonomous-Cars)
 [![Coverage Status](https://coveralls.io/repos/github/MichiMaestre/Lane-Detection-for-Autonomous-Cars/badge.svg?branch=master)](https://coveralls.io/github/MichiMaestre/Lane-Detection-for-Autonomous-Cars?branch=master)
 
 # Overview
-A lane detection algorithm is proposed as part of the perception component for a self driving vehicle. By using a video feed input of a car driving on the highway, the algorithm will detect where the lanes are so that the car can use its location to avoid getting out of the lane. It will also be able to predict any turn on the road to secure a good tracking of the lane.
-The following figure shows a frame of the input video:
+======
+The objective of this project was to design and develop a lane detection algorithm for autonomous vehicles applications. The self driving car market is growing at a very fast pace. Many companies are working in this coomplex problem, so that autonomous cars can drive safely on the roads. It is such a complex problem due to the many aspects that it depends on: robotics, path planning, navigation, computer vision, mechanics, etc.
 
-![inputImage](https://github.com/MichiMaestre/Lane-Detection-for-Autonomous-Cars/blob/master/images/inputImage.png)
+This project is focused in the computer vision aspect of it, a crucial module. If an automated car is going to drive around unpredictable environments, it has to be able to perceive and detect every small detail that surrounds it.
 
-# Solo Iterative Process
-Since this is a single programmer project, the Solo Iterative Process (SIP) is used to manage it. A product backlog, iteration backlog and work log(time log and code defect log) are used as structure of the whole project. The following link contains these logs. They will be updated through the whole development of the project.
+A lane detection algorithm is proposed as part of the perception component for a self driving vehicle. By using a video feed input of a car driving on the highway, the algorithm will detect where the lanes are so that the car can use its location to avoid getting out of the lane. It will also be able to predict any turn on the road to secure a good tracking of the lane. The following subsection of the Overview will expalin the pipeline of the algorithm step by step. 
 
-https://docs.google.com/spreadsheets/d/1wAc0GReN9C3EdXlg6FTdIYsp7ub-Ah-TXP2X_KxtHys/edit?usp=sharing
-
-The project will consist of two iterations:
-* The release for Iteration 1 will be a functioning code which detects lanes in the input video.
-* Iteration 2 will release the unit tests, Doxygen documentation and the finalized project. 
-
-# Algorithm
+### Algorithm
 The proposed algorithm follows a straight forward pipeline with several steps as shown in the following activity diagram. It will iterate through every frame of the video and do the following steps in each of them:
 ![diagram](https://github.com/MichiMaestre/Lane-Detection-for-Autonomous-Cars/blob/master/UML/initial/Activity_UML.png)
 
@@ -28,3 +22,12 @@ The proposed algorithm follows a straight forward pipeline with several steps as
 * By applying basic linear algebra, all the detected Hough lines will be classified as left side lines or right side lines.
 * Regression will be applied to the stored left and right lines clusters to obtain only one line for each side. These lines will be the corresponding lane boundaries.
 * Lastly, the turn prediction is determined by the location of the vanishing point in the image, formed by the boudaries of the lane.
+
+# Solo Iterative Process
+Since this is a single programmer project, the Solo Iterative Process (SIP) is used to manage it. A product backlog, iteration backlog and work log(time log and code defect log) are used as structure of the whole project. The following link contains these logs. They will be updated through the whole development of the project.
+
+https://docs.google.com/spreadsheets/d/1wAc0GReN9C3EdXlg6FTdIYsp7ub-Ah-TXP2X_KxtHys/edit?usp=sharing
+
+The project will consist of two iterations:
+* The release for Iteration 1 will be a functioning code which detects lanes in the input video.
+* Iteration 2 will release the unit tests, Doxygen documentation and the finalized project. 
