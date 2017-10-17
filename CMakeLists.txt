@@ -11,7 +11,7 @@ if (COVERAGE)
     include(CodeCoverage)
     set(LCOV_REMOVE_EXTRA "'vendor/*'")
     setup_target_for_coverage(code_coverage test/lanes-test coverage)
-    set(COVERAGE_SRCS LaneDetector/main.cpp LaneDetector/LaneDetector.cpp include/LaneDetector.hpp include/LaneDetector_test.hpp)
+    set(COVERAGE_SRCS LaneDetector/demo.cpp LaneDetector/LaneDetector.cpp include/LaneDetector.hpp include/LaneDetector_test.hpp)
 
     SET(CMAKE_CXX_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
     SET(CMAKE_C_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
