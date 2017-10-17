@@ -44,6 +44,8 @@ The proposed algorithm follows a straight forward pipeline with several steps as
 
 ![result](https://github.com/MichiMaestre/Lane-Detection-for-Autonomous-Cars/blob/master/images/Final.png) 
 
+The code can be found in the LaneDetector folder. and the saved output .avi video is in the output_video folder.
+
 ## Dependencies
 The only dependency for this project is OpenCV 3.2.0. To install it, follow the next steps:
 
