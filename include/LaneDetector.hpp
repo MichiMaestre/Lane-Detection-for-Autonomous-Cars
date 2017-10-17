@@ -18,8 +18,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *@copyright Copyright 2017 Miguel Maestre Trueba
  *@file LaneDetector.hpp
  *@author Miguel Maestre Trueba
- *@brief Header file for the LaneDetector class.
- *@brief Functions are developed in LaneDetector.cpp
+ *@brief Header file for the LaneDetector class. Functions are developed in LaneDetector.cpp
  */
 
 #pragma once
@@ -30,8 +29,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "opencv2/opencv.hpp"
 
 /**
- *@brief Definition of the LaneDetector class.
- *@brief It contains all the functions and variables depicted in the
+ *@brief Definition of the LaneDetector class. It contains all the functions and variables depicted in the
  *@brief Activity diagram and UML Class diagram.
  *@brief It detects the lanes in an image if a highway and outputs the
  *@brief same image with the plotted lane.

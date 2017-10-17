@@ -1,0 +1,205 @@
+\hypertarget{classLaneDetector}{}\section{Lane\+Detector Class Reference}
+\label{classLaneDetector}\index{Lane\+Detector@{Lane\+Detector}}
+
+
+Definition of the \hyperlink{classLaneDetector}{Lane\+Detector} class. It contains all the functions and variables depicted in the.  
+
+
+
+
+{\ttfamily \#include $<$Lane\+Detector.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+cv\+::\+Mat \hyperlink{classLaneDetector_a816d7555c6b7690d7afdd81eb62dd35b}{de\+Noise} (cv\+::\+Mat input\+Image)
+\begin{DoxyCompactList}\small\item\em Apply gaussian filter to the input image to denoise it. \end{DoxyCompactList}\item 
+cv\+::\+Mat \hyperlink{classLaneDetector_a8920b291267aad638f8874512fba33cf}{edge\+Detector} (cv\+::\+Mat img\+\_\+noise)
+\begin{DoxyCompactList}\small\item\em Detect all the edges in the blurred frame by filtering the image. \end{DoxyCompactList}\item 
+cv\+::\+Mat \hyperlink{classLaneDetector_a64d74d2971d1e14175ef58dfbb391f6d}{mask} (cv\+::\+Mat img\+\_\+edges)
+\begin{DoxyCompactList}\small\item\em Mask the image so that only the edges that form part of the lane are detected. \end{DoxyCompactList}\item 
+std\+::vector$<$ cv\+::\+Vec4i $>$ \hyperlink{classLaneDetector_adbbc2f50aee10844aeec12b1fe084fb2}{hough\+Lines} (cv\+::\+Mat img\+\_\+mask)
+\begin{DoxyCompactList}\small\item\em Obtain all the line segments in the masked images which are going to be part of the lane boundaries. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ cv\+::\+Vec4i $>$ $>$ \hyperlink{classLaneDetector_a8005c489f194eded3bc5a76cfc496c43}{line\+Separation} (std\+::vector$<$ cv\+::\+Vec4i $>$ lines, cv\+::\+Mat img\+\_\+edges)
+\begin{DoxyCompactList}\small\item\em Sort all the detected Hough lines by slope. \end{DoxyCompactList}\item 
+std\+::vector$<$ cv\+::\+Point $>$ \hyperlink{classLaneDetector_ac9a862f41a23ab0c3bfed2ce512a56d8}{regression} (std\+::vector$<$ std\+::vector$<$ cv\+::\+Vec4i $>$ $>$ left\+\_\+right\+\_\+lines, cv\+::\+Mat input\+Image)
+\begin{DoxyCompactList}\small\item\em Regression takes all the classified line segments initial and final points and fits a new lines out of them using the method of least squares. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classLaneDetector_a84053373ae184e752f023658fb187241}{predict\+Turn} ()
+\begin{DoxyCompactList}\small\item\em Predict if the lane is turning left, right or if it is going straight. \end{DoxyCompactList}\item 
+int \hyperlink{classLaneDetector_a9564c3349f0fa5a7da7968b9461e2730}{plot\+Lane} (cv\+::\+Mat input\+Image, std\+::vector$<$ cv\+::\+Point $>$, std\+::string turn)
+\begin{DoxyCompactList}\small\item\em This function plots both sides of the lane, the turn prediction message and a transparent polygon that covers the area inside the lane boundaries. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Definition of the \hyperlink{classLaneDetector}{Lane\+Detector} class. It contains all the functions and variables depicted in the. 
+
+Activity diagram and U\+ML Class diagram. It detects the lanes in an image if a highway and outputs the same image with the plotted lane. 
+
+\subsection{Member Function Documentation}
+\index{Lane\+Detector@{Lane\+Detector}!de\+Noise@{de\+Noise}}
+\index{de\+Noise@{de\+Noise}!Lane\+Detector@{Lane\+Detector}}
+\subsubsection[{\texorpdfstring{de\+Noise(cv\+::\+Mat input\+Image)}{deNoise(cv::Mat inputImage)}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat Lane\+Detector\+::de\+Noise (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat}]{input\+Image}
+\end{DoxyParamCaption}
+)}\hypertarget{classLaneDetector_a816d7555c6b7690d7afdd81eb62dd35b}{}\label{classLaneDetector_a816d7555c6b7690d7afdd81eb62dd35b}
+
+
+Apply gaussian filter to the input image to denoise it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Image} & is the frame of a video in which the \\
+\hline
+{\em lane} & is going to be detected \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Blurred and denoised image 
+\end{DoxyReturn}
+\index{Lane\+Detector@{Lane\+Detector}!edge\+Detector@{edge\+Detector}}
+\index{edge\+Detector@{edge\+Detector}!Lane\+Detector@{Lane\+Detector}}
+\subsubsection[{\texorpdfstring{edge\+Detector(cv\+::\+Mat img\+\_\+noise)}{edgeDetector(cv::Mat img_noise)}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat Lane\+Detector\+::edge\+Detector (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat}]{img\+\_\+noise}
+\end{DoxyParamCaption}
+)}\hypertarget{classLaneDetector_a8920b291267aad638f8874512fba33cf}{}\label{classLaneDetector_a8920b291267aad638f8874512fba33cf}
+
+
+Detect all the edges in the blurred frame by filtering the image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em img\+\_\+noise} & is the previously blurred frame \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Binary image with only the edges represented in white 
+\end{DoxyReturn}
+\index{Lane\+Detector@{Lane\+Detector}!hough\+Lines@{hough\+Lines}}
+\index{hough\+Lines@{hough\+Lines}!Lane\+Detector@{Lane\+Detector}}
+\subsubsection[{\texorpdfstring{hough\+Lines(cv\+::\+Mat img\+\_\+mask)}{houghLines(cv::Mat img_mask)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ cv\+::\+Vec4i $>$ Lane\+Detector\+::hough\+Lines (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat}]{img\+\_\+mask}
+\end{DoxyParamCaption}
+)}\hypertarget{classLaneDetector_adbbc2f50aee10844aeec12b1fe084fb2}{}\label{classLaneDetector_adbbc2f50aee10844aeec12b1fe084fb2}
+
+
+Obtain all the line segments in the masked images which are going to be part of the lane boundaries. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em img\+\_\+mask} & is the masked binary image from the previous function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector that contains all the detected lines in the image 
+\end{DoxyReturn}
+\index{Lane\+Detector@{Lane\+Detector}!line\+Separation@{line\+Separation}}
+\index{line\+Separation@{line\+Separation}!Lane\+Detector@{Lane\+Detector}}
+\subsubsection[{\texorpdfstring{line\+Separation(std\+::vector$<$ cv\+::\+Vec4i $>$ lines, cv\+::\+Mat img\+\_\+edges)}{lineSeparation(std::vector< cv::Vec4i > lines, cv::Mat img_edges)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ std\+::vector$<$ cv\+::\+Vec4i $>$ $>$ Lane\+Detector\+::line\+Separation (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ cv\+::\+Vec4i $>$}]{lines, }
+\item[{cv\+::\+Mat}]{img\+\_\+edges}
+\end{DoxyParamCaption}
+)}\hypertarget{classLaneDetector_a8005c489f194eded3bc5a76cfc496c43}{}\label{classLaneDetector_a8005c489f194eded3bc5a76cfc496c43}
+
+
+Sort all the detected Hough lines by slope. 
+
+The lines are classified into right or left depending on the sign of their slope and their approximate location 
+\begin{DoxyParams}{Parameters}
+{\em lines} & is the vector that contains all the detected lines \\
+\hline
+{\em img\+\_\+edges} & is used for determining the image center \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The output is a vector(2) that contains all the classified lines 
+\end{DoxyReturn}
+\index{Lane\+Detector@{Lane\+Detector}!mask@{mask}}
+\index{mask@{mask}!Lane\+Detector@{Lane\+Detector}}
+\subsubsection[{\texorpdfstring{mask(cv\+::\+Mat img\+\_\+edges)}{mask(cv::Mat img_edges)}}]{\setlength{\rightskip}{0pt plus 5cm}cv\+::\+Mat Lane\+Detector\+::mask (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat}]{img\+\_\+edges}
+\end{DoxyParamCaption}
+)}\hypertarget{classLaneDetector_a64d74d2971d1e14175ef58dfbb391f6d}{}\label{classLaneDetector_a64d74d2971d1e14175ef58dfbb391f6d}
+
+
+Mask the image so that only the edges that form part of the lane are detected. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em img\+\_\+edges} & is the edges image from the previous function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Binary image with only the desired edges being represented 
+\end{DoxyReturn}
+\index{Lane\+Detector@{Lane\+Detector}!plot\+Lane@{plot\+Lane}}
+\index{plot\+Lane@{plot\+Lane}!Lane\+Detector@{Lane\+Detector}}
+\subsubsection[{\texorpdfstring{plot\+Lane(cv\+::\+Mat input\+Image, std\+::vector$<$ cv\+::\+Point $>$, std\+::string turn)}{plotLane(cv::Mat inputImage, std::vector< cv::Point >, std::string turn)}}]{\setlength{\rightskip}{0pt plus 5cm}int Lane\+Detector\+::plot\+Lane (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat}]{input\+Image, }
+\item[{std\+::vector$<$ cv\+::\+Point $>$}]{lane, }
+\item[{std\+::string}]{turn}
+\end{DoxyParamCaption}
+)}\hypertarget{classLaneDetector_a9564c3349f0fa5a7da7968b9461e2730}{}\label{classLaneDetector_a9564c3349f0fa5a7da7968b9461e2730}
+
+
+This function plots both sides of the lane, the turn prediction message and a transparent polygon that covers the area inside the lane boundaries. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Image} & is the original captured frame \\
+\hline
+{\em lane} & is the vector containing the information of both lines \\
+\hline
+{\em turn} & is the output string containing the turn information \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The function returns a 0 
+\end{DoxyReturn}
+\index{Lane\+Detector@{Lane\+Detector}!predict\+Turn@{predict\+Turn}}
+\index{predict\+Turn@{predict\+Turn}!Lane\+Detector@{Lane\+Detector}}
+\subsubsection[{\texorpdfstring{predict\+Turn()}{predictTurn()}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::string Lane\+Detector\+::predict\+Turn (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classLaneDetector_a84053373ae184e752f023658fb187241}{}\label{classLaneDetector_a84053373ae184e752f023658fb187241}
+
+
+Predict if the lane is turning left, right or if it is going straight. 
+
+It is done by seeing where the vanishing point is with respect to the center of the image \begin{DoxyReturn}{Returns}
+String that says if there is left or right turn or if the road is straight 
+\end{DoxyReturn}
+\index{Lane\+Detector@{Lane\+Detector}!regression@{regression}}
+\index{regression@{regression}!Lane\+Detector@{Lane\+Detector}}
+\subsubsection[{\texorpdfstring{regression(std\+::vector$<$ std\+::vector$<$ cv\+::\+Vec4i $>$ $>$ left\+\_\+right\+\_\+lines, cv\+::\+Mat input\+Image)}{regression(std::vector< std::vector< cv::Vec4i > > left_right_lines, cv::Mat inputImage)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$ cv\+::\+Point $>$ Lane\+Detector\+::regression (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::vector$<$ cv\+::\+Vec4i $>$ $>$}]{left\+\_\+right\+\_\+lines, }
+\item[{cv\+::\+Mat}]{input\+Image}
+\end{DoxyParamCaption}
+)}\hypertarget{classLaneDetector_ac9a862f41a23ab0c3bfed2ce512a56d8}{}\label{classLaneDetector_ac9a862f41a23ab0c3bfed2ce512a56d8}
+
+
+Regression takes all the classified line segments initial and final points and fits a new lines out of them using the method of least squares. 
+
+This is done for both sides, left and right. 
+\begin{DoxyParams}{Parameters}
+{\em left\+\_\+right\+\_\+lines} & is the output of the line\+Separation function \\
+\hline
+{\em input\+Image} & is used to select where do the lines will end \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+output contains the initial and final points of both lane boundary lines 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/michi/\+Desktop/\+U\+M\+D/\+E\+N\+P\+M808\+X/\+Midterm/workspace/\+Lane-\/\+Detection-\/for-\/\+Autonomous-\/\+Cars/include/\hyperlink{LaneDetector_8hpp}{Lane\+Detector.\+hpp}\item 
+/home/michi/\+Desktop/\+U\+M\+D/\+E\+N\+P\+M808\+X/\+Midterm/workspace/\+Lane-\/\+Detection-\/for-\/\+Autonomous-\/\+Cars/\+Lane\+Detector/\hyperlink{LaneDetector_8cpp}{Lane\+Detector.\+cpp}\end{DoxyCompactItemize}

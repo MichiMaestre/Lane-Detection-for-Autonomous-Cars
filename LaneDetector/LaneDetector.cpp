@@ -30,9 +30,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // IMAGE BLURRING
 /**
  *@brief Apply gaussian filter to the input image to denoise it
- *@param cv::Mat inputImage is the frame of a video in which the
+ *@param inputImage is the frame of a video in which the
  *@param lane is going to be detected
- *@return output: Blurred and denoised image
+ *@return Blurred and denoised image
  */
 cv::Mat LaneDetector::deNoise(cv::Mat inputImage) {
   cv::Mat output;
@@ -45,8 +45,8 @@ cv::Mat LaneDetector::deNoise(cv::Mat inputImage) {
 // EDGE DETECTION
 /**
  *@brief Detect all the edges in the blurred frame by filtering the image
- *@param cv::Mat img_noise is the previously blurred frame
- *@return output: Binary image with only the edges represented in white
+ *@param img_noise is the previously blurred frame
+ *@return Binary image with only the edges represented in white
  */
 cv::Mat LaneDetector::edgeDetector(cv::Mat img_noise) {
   cv::Mat output;
@@ -75,10 +75,9 @@ cv::Mat LaneDetector::edgeDetector(cv::Mat img_noise) {
 
 // MASK THE EDGE IMAGE
 /**
- *@brief Mask the image so that only the edges that form part of
- *@brief the lane are detected
- *@param cv::Mat img_edges is the edges image from the previous function
- *@return output: Binary image with only the desired edges being represented
+ *@brief Mask the image so that only the edges that form part of the lane are detected
+ *@param img_edges is the edges image from the previous function
+ *@return Binary image with only the desired edges being represented
  */
 cv::Mat LaneDetector::mask(cv::Mat img_edges) {
   cv::Mat output;
@@ -100,10 +99,9 @@ cv::Mat LaneDetector::mask(cv::Mat img_edges) {
 
 // HOUGH LINES
 /**
- *@brief Obtain all the line segments in the masked images
- *@brief which are going to be part of the lane boundaries
- *@param cv::Mat img_mask is the masked binary image from the previous function
- *@return line is a vector that contains all the detected lines in the image
+ *@brief Obtain all the line segments in the masked images which are going to be part of the lane boundaries
+ *@param img_mask is the masked binary image from the previous function
+ *@return Vector that contains all the detected lines in the image
  */
 std::vector<cv::Vec4i> LaneDetector::houghLines(cv::Mat img_mask) {
   std::vector<cv::Vec4i> line;
@@ -121,7 +119,7 @@ std::vector<cv::Vec4i> LaneDetector::houghLines(cv::Mat img_mask) {
  *@brief on the sign of their slope and their approximate location
  *@param lines is the vector that contains all the detected lines
  *@param img_edges is used for determining the image center
- *@return output is a vector(2) that contains all the classified lines
+ *@return The output is a vector(2) that contains all the classified lines
  */
 std::vector<std::vector<cv::Vec4i> > LaneDetector::lineSeparation(std::vector<cv::Vec4i> lines, cv::Mat img_edges) {
   std::vector<std::vector<cv::Vec4i> > output(2);
@@ -174,8 +172,7 @@ std::vector<std::vector<cv::Vec4i> > LaneDetector::lineSeparation(std::vector<cv
 
 // REGRESSION FOR LEFT AND RIGHT LINES
 /**
- *@brief regression takes all the classified line segments initial and final
- *@brief points and fits a new lines out of them using the method of least squares.
+ *@brief Regression takes all the classified line segments initial and final points and fits a new lines out of them using the method of least squares.
  *@brief This is done for both sides, left and right.
  *@param left_right_lines is the output of the lineSeparation function
  *@param inputImage is used to select where do the lines will end
@@ -250,8 +247,7 @@ std::vector<cv::Point> LaneDetector::regression(std::vector<std::vector<cv::Vec4
 /**
  *@brief Predict if the lane is turning left, right or if it is going straight
  *@brief It is done by seeing where the vanishing point is with respect to the center of the image
- *@param There are no input arguments for this function
- *@return output is a string that says if there is left or right turn or if the road is straight
+ *@return String that says if there is left or right turn or if the road is straight
  */
 std::string LaneDetector::predictTurn() {
   std::string output;
@@ -274,11 +270,11 @@ std::string LaneDetector::predictTurn() {
 
 // PLOT RESULTS
 /**
- *@brief This function plots both sides of the lane, the turn prediction message
- *@brief and a transparent polygon that covers the area inside the lane boundaries
+ *@brief This function plots both sides of the lane, the turn prediction message and a transparent polygon that covers the area inside the lane boundaries
  *@param inputImage is the original captured frame
  *@param lane is the vector containing the information of both lines
  *@param turn is the output string containing the turn information
+ *@return The function returns a 0
  */
 int LaneDetector::plotLane(cv::Mat inputImage, std::vector<cv::Point> lane, std::string turn) {
   std::vector<cv::Point> poly_points;

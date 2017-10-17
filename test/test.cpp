@@ -30,11 +30,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "../include/LaneDetector.hpp"
 
 /**
- *@brief Function very similar to demo.cpp. It tests only one iteration
- *@brief of the algorithm for a single image.
+ *@brief Function very similar to demo.cpp. It tests only one iteration of the algorithm for a single image.
  *@param video is a flag that selects the demo video or an image without lanes for testing purposes
  *@param frame_number gives the exact frame number of the input video
- *@return int flag_plot tells if the demo has sucessfully finished
+ *@return flag_plot tells if the demo has sucessfully finished
  */
 int testing_lanes(int video, int frame_number) {
     LaneDetector lanedetector;  // LaneDetector class object
@@ -83,22 +82,29 @@ int testing_lanes(int video, int frame_number) {
 }
 
 /**
- *@brief Test cases to test if lane is detected,
- *@brief if lane is turning, if the lane is going straight
- *@brief and if there is no lane detected at all
+ *@brief Test case to test if lane is detected and if the lane is turning left.
  */
 TEST(LaneTest, lane_detected) {
   EXPECT_EQ(testing_lanes(1, 3), 0);
 }
 
+/**
+ *@brief Test cases to test if lane is detected and if the lane is going straight.
+ */
 TEST(LaneTest, no_turn) {
   EXPECT_EQ(testing_lanes(1, 530), 0);
 }
 
+/**
+ *@brief Test cases to test if lane is detected and if the lane is turning right.
+ */
 TEST(LaneTest, right_turn) {
   EXPECT_EQ(testing_lanes(1, 700), 0);
 }
 
+/**
+ *@brief Test cases to test if lane is not detected at all.
+ */
 TEST(LaneTest, lane_not_detected) {
   EXPECT_EQ(testing_lanes(0, 1), -1);
 }

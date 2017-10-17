@@ -33,8 +33,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *@brief Function main that runs the main algorithm of the lane detection.
  *@brief It will read a video of a car in the highway and it will output the
  *@brief same video but with the plotted detected lane
- *@param The argument is a string to the full path of the demo video
- *@return int flag_plot tells if the demo has sucessfully finished
+ *@param argv[] is a string to the full path of the demo video
+ *@return flag_plot tells if the demo has sucessfully finished
  */
 int main(int argc, char *argv[]) {
     if (argc != 2) {
