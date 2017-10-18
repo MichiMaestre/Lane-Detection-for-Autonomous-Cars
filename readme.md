@@ -44,7 +44,7 @@ The proposed algorithm follows a straight forward pipeline with several steps as
 
 ![result](https://github.com/MichiMaestre/Lane-Detection-for-Autonomous-Cars/blob/master/images/Final.png) 
 
-The code can be found in the LaneDetector folder. and the saved output .avi video is in the output_video folder.
+The code can be found in the LaneDetector folder.
 
 ## Dependencies
 The only dependency for this project is OpenCV 3.2.0. To install it, follow the next steps:
@@ -80,11 +80,13 @@ Download project video: wget -O project_video.mp4 "https://drive.google.com/uc?e
 Download negative image: wget -O gradient1.png "https://drive.google.com/uc?export=download&id=0B8dH7dFBBB-nTXdnS0libDBNeW8"
 make
 ```
-* Run the demo:
+* Run the demo. The argument of the executable `lanes` is the input video with its full path:
 ```
 cd build
 ./LaneDetector/lanes /full/path/to/repository/build/project_video.mp4
 ```
+(The saved output .avi demo video is in the output_video folder)
+
 * Run the tests:
 ```
 cd build
