@@ -53,5 +53,5 @@ class LaneDetector {
   std::vector<std::vector<cv::Vec4i> > lineSeparation(std::vector<cv::Vec4i> lines, cv::Mat img_edges);  // Sprt detected lines by their slope into right and left lines
   std::vector<cv::Point> regression(std::vector<std::vector<cv::Vec4i> > left_right_lines, cv::Mat inputImage);  // Get only one line for each side of the lane
   std::string predictTurn();  // Determine if the lane is turning or not by calculating the position of the vanishing point
-  int plotLane(cv::Mat inputImage, std::vector<cv::Point>, std::string turn);  // Plot the resultant lane and turn prediction in the frame.
+  int plotLane(cv::Mat inputImage, std::vector<cv::Point> lane, std::string turn);  // Plot the resultant lane and turn prediction in the frame.
 };
