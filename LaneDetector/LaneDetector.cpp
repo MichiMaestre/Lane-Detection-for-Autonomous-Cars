@@ -50,13 +50,37 @@ cv::Mat LaneDetector::deNoise(cv::Mat inputImage) {
  */
 cv::Mat LaneDetector::edgeDetector(cv::Mat img_noise) {
   cv::Mat output;
+  cv::Mat gray;
+  cv::Mat hsv;
+  cv::Mat hls;
+  cv::Mat hsv_yellow;
+  cv::Mat hsv_white;
+  cv::Mat hls_yellow;
+  cv::Mat hls_white;
+  cv::Mat color_mask;
+  cv::Mat filtered_gray;
   cv::Mat kernel;
   cv::Point anchor;
 
-  // Convert image from RGB to gray
-  cv::cvtColor(img_noise, output, cv::COLOR_RGB2GRAY);
-  // Binarize gray image
-  cv::threshold(output, output, 140, 255, cv::THRESH_BINARY);
+  // Convert image to gray and color spaces for lane color filtering.
+  cv::cvtColor(img_noise, gray, cv::COLOR_BGR2GRAY);
+  cv::cvtColor(img_noise, hsv, cv::COLOR_BGR2HSV);
+  cv::cvtColor(img_noise, hls, cv::COLOR_BGR2HLS);
+
+  // Detect typical yellow and white lane markings in HSV and HLS spaces.
+  cv::inRange(hsv, cv::Scalar(15, 60, 70), cv::Scalar(40, 255, 255), hsv_yellow);
+  cv::inRange(hsv, cv::Scalar(0, 0, 200), cv::Scalar(180, 60, 255), hsv_white);
+  cv::inRange(hls, cv::Scalar(10, 30, 80), cv::Scalar(40, 220, 255), hls_yellow);
+  cv::inRange(hls, cv::Scalar(0, 200, 0), cv::Scalar(180, 255, 255), hls_white);
+
+  color_mask = hsv_yellow | hsv_white | hls_yellow | hls_white;
+
+  // Keep intensity information only where lane colors are likely present.
+  cv::bitwise_and(gray, gray, filtered_gray, color_mask);
+
+  // Adaptive thresholding makes the edge extraction more robust to shadows.
+  cv::adaptiveThreshold(filtered_gray, output, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C,
+                        cv::THRESH_BINARY, 15, -5);
 
   // Create the kernel [-1 0 1]
   // This kernel is based on the one found in the
